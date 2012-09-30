@@ -71,7 +71,7 @@ plotAMids takes as input the dataframe of genetic distances returned by calculat
 Return a plot of the relationship of a sample population to the HGDP references to the R plotting device.
 }
 \references{
-Magalh\~aes et al. (2012) PLOS One (accepted)
+Magalh\~aes et al. (2012) PLoS ONE 7(11): e49438. doi:10.1371/journal.pone.0049438
 }
 \author{
 Tiago R. Magalh\~aes, Darren J. Fitzpatrick

@@ -1,11 +1,11 @@
-8d4bcf55a1dbb31c93291add1fd73367 *DESCRIPTION
+6d069bab6a0e8dacf6c126b9b3b5c903 *DESCRIPTION
 9fdfeb11f7ddba6f3aab9aaa6b1ac5dd *NAMESPACE
 df814340264c0f36a4ef3318b161f332 *R/AncestryMapper.R
 4b58239020b11fae6c8664b1c33dce7e *inst/doc/AncestryMapper.Rnw
-6153be3e87845796f60c02e9906afaae *inst/doc/AncestryMapper.pdf
+ddeca354d7cab65868c215666e7ad124 *inst/doc/AncestryMapper.pdf
 d078c594d2491a6d8cd6adf31e218811 *inst/extdata/HGDP_500SNPs.ped
 d3fba3ce0376715cdd0192872bfcb3d8 *inst/extdata/HGDP_Phenotypes.txt
 76d99292cea90f60a562af0c95ab292e *inst/extdata/HGDP_References.txt
-5bd670d64614b32c9dc269e41dec22da *man/AncestryMapper-package.Rd
-0bddab1567e898983ea83a9c2e000f56 *man/calculateAMids.Rd
-46fde0d29d44f6808fe560e3bf4f3252 *man/plotAMids.Rd
+1739da27eb08ccab31117e92f3c1a51b *man/AncestryMapper-package.Rd
+08dd4f2bf777a024742a239e7959e103 *man/calculateAMids.Rd
+65f28e9aa803e2bf90a6980347d406ba *man/plotAMids.Rd

@@ -23,7 +23,7 @@ Tiago R. Magalh\~aes, Darren J. Fitzpatrick
 Maintainer: Tiago R. Magalh\~aes  <tiago17@gmail.com>
 }
 \references{
-Magalh\~aes et al, 2012 PLOS One accepted.
+Magalh\~aes TR et al. (2012) PLoS ONE 7(11): e49438. doi:10.1371/journal.pone.0049438 
 }
 \keyword{ package }
 \keyword{ genetic distance }

@@ -19,7 +19,7 @@ Program computes the genetic distances amongst individuals and the 51 HGDP refer
 calculateAMids returns a dataframe containing the genetic distance of each sample individual to the 51 HGDP references. This dataframe is subsequently used as input to the plotAMids function.
 }
 \references{
-Magalh\~aes et al. (2012) PLOS One (accepted)
+Magalh\~aes TR et al. (2012) PLoS ONE 7(11): e49438. doi:10.1371/journal.pone.0049438
 }
 \author{
 Tiago R. Magalh\~aes, Darren J. Fitzpatrick
