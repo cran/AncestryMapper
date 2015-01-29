@@ -1,0 +1,155 @@
+---
+title: "AncestryMapper Overview"
+author: "Tiago R. Magalhães, Darren Fitzpatrick, Eoghan O'Halloran"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{AncestryMapper Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+AncestryMapper is an R package that implements the methods described in
+Magalhães TR, Casey JP, Conroy J, Regan R, Fitzpatrick DJ, et al. (2012)
+HGDP and HapMap Analysis by Ancestry Mapper Reveals Local and Global
+Population Relationships. PLoS ONE 7(11): e49438.
+
+
+####
+Introduction
+============
+Knowledge of human origins, migrations and expansions is greatly
+enhanced by the availability of large datasets of genetic information
+from different populations and by the development of bioinformatic tools
+used to analyze the data.
+
+Ancestry Mapper assigns genetic ancestry to an individual and studies
+relationships between local and global populations. The principle
+function of the method gives each individual an Ancestry Mapper Id
+(AMid), a genetic identifier comprising 51 genetic coordinates that
+correspond to its relationship to the Human Genome Diversity Project
+(HGDP). The AMid metrics have intrinsic biological meaning and provide a
+tool to measure genetic similarity between world populations. The user can provide a different set of population references.
+
+
+####
+Package Functions
+=================
+The package consists of two functions:
+
+- calculateAMIds: calculates and assigns Ancestry Mapper Ids (AMids) to each
+    individual
+
+- plotAMids: produces a heatmap representation of AMids
+
+
+calculateAMids
+--------------
+For each individual, calculateAMids computes the genetic distances
+amongst that individual and the set of HGDP references (or a set provided by the user). As input, the
+function requires a PED formatted file. PED formatting is the standard
+file format required by the PLINK software suite. For details on the
+format see <http://pngu.mgh.harvard.edu/~purcell/plink/>. It also
+requires a file containing the ids of the individuals to be used as references, and the population they correspond to.
+
+As output, returns a dataframe containing the genetic distance of each
+individual to the all HGDP references. We provide the raw distance
+measures (starting with the prefix C_) and indices (normalized Values,
+starting with the prefix I_).
+
+The genetic distance is computed as the Euclidean distance normalized by
+the number of SNPs, between each individual and the
+references. AMids for a single individual from any dataset can be
+computed provided there is a reasonable overlap between the set of SNPs
+for that individual and the references. The AMids can take values
+from 0 to 2. In our experience, the values are in the range 0.4 to 1.1.
+
+The normalized values of the distances are such that the highest
+reference is scored as 100, the lowest as 0 and all others adjusted
+accordingly. These indices place the individual in the genomic map,
+forcing it to be committed to one reference, even if the absolute
+similarities, as indicated by the euclidean distances, are not very big.
+Thus, they provide a global overview on the number of relevant
+references for each individual.
+
+The user can include new references in AMids by editing the file 'HGDP_References.txt', inserting the population and the corresponding individual’s name.
+
+plotAMids
+---------
+The function is used to visualize the relationship amongst individuals
+and the population references. plotAMids takes as input the dataframe of genetic
+distances returned by calculateAMids. The user can also provide a file with phenotypes
+for each individual which will be visible in the plot. The colors for
+the plot are from the packages but are hard coded so there are no
+dependencies.
+
+
+####
+Producing a PED file
+====================
+The PED file should include individuals that will be taken as the population references, which will be used to calculate the ancestry mapper indexes (AMIds) for the user dataset. In our original work we used as references the 51 populations included in the Human Genome Diversity Project. The HGDP dataset can be obtained at http://hagsc.org/hgdp/files.html.
+
+To merge a custom ped file with a ped file with the references, users could use PLINK. The commands -\-bmerge or -\-merge are used to  merge two ped files. Both files should be in the ACGT format.
+In most cases there will be strand inconsistencies, that can be rectified by flipping snps, using the command -\-flip. SNPs that are CG AT are impossible to determine which strand they are in and as such be removed.
+Ancestry mapper requires the ped files to be in the 1/2 coding system.
+The individual Ids are taken as the second column of the ped file; these ids should be unique.
+
+We have produced a bed file with the references for the 51 HGDP populations, with 630,597 snps; the file is named HGDP_51RefAM_AutosomalSnps_630597_ACGT and can be obtained at http://bit.ly/1vnZzCT.
+
+The python 3 script for Linux 'py_merge_HGDPAncestryMapperRefs_AncMap.py', also present in the folder, merges the HGDP reference bed file with any user bed PLINK file.
+The user should edit the script providing the path to both files, the working folder, the name of the merged file, and whether sex chromosomes should be removed.
+
+
+####
+Future Releases
+===============
+In future releases, it is anticipated two additional functions will be
+added to the package,
+1) a clustering function in order to group individuals and reference samples, and
+2) a function to add custom references to the HGDP reference panel.
+We are also currently working to expand the population references to close to 200 world-wide populations.
+
+
+####
+Tutorial
+========
+The tutorial uses three files, distributed with the package.
+- HGDP_References.txt: with provides the individual that corresponds to the  51 HGDP populations.
+
+- HGDP_500SNPs.ped: PLINK ped file with 500 randomly selected SNPs from the HGDP data set.
+
+- HGDP_Phenotypes.txt: A file detailing phenotypes of the individuals, with color codes for population and continent. 
+
+These files are in the folder extdata of the AncestryMapper folder; the path to these tutorial files can be obtained using:
+`system.file(fileName, package='AncestryMapper')`
+The files are also present at http://bit.ly/1vnZzCT.
+
+```
+# obtain tutorial files; they live in the extdata folder from the package
+HGDP.References <- system.file('extdata','HGDP.References.txt',package='AncestryMapper')
+HGDP.500SNPs <- system.file('extdata,'HGDP.500SNPs.ped',package='AncestryMapper')
+HGDP.Phenotypes <- system.file('extdata','HGDP.Phenotypes.txt', package='AncestryMapper')
+```
+
+The second step calculates the genetic distances using the function calculateAMids. This returns a
+dataframe detailing the genetic distance of each individual to the 51 HGDP references.
+
+`genetic.distance <- calculateAMids(pedtxtFile=HGDP.500SNPs,fileReferences=HGDP.References)`
+
+#### 
+The plotAMids function produces a genomic map plotting the genetic distance
+of individuals and the HGDP references. It can incorporate phenotypes as an option.
+
+The plot function produces a genomic map detailing the genetic distance of individuals and the HGDP references. The plot function can incorporate phenotypes as an option. There are multiple options for the plotAMids function.
+
+```
+plotAMids(AMids=genetic.distance, phenoFile='HGDP.Phenotypes')
+
+# if no phenoFile is given, the population for the individual will not appear on the plot
+plotAMids(AMids=genetic.distance, phenoFile='')
+```
+
+#### 
+The plot is automatically directed to the R plotting device but can be saved in a variety of formats, e.g., pdf, png, and tiff.
+
+####
