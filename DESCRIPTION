@@ -1,15 +1,22 @@
 Package: AncestryMapper
+Version: 2.0
+Date: 2016-09-24
 Title: Assigning Ancestry Based on Population References
-Version: 1.2
-Date: 2015-01-29
-Author: Tiago R Magalhaes, Darren J Fitzpatrick, Eoghan O'Halloran
-Maintainer: Tiago R Magalhaes <tiago17@gmail.com>
-Description: Assigns genetic ancestry to an individual, relating to well studied populations, with world-wide coverage, and studies relationships between local and global populations.
+Author: Tiago R Magalhaes, Eoghan T O'Halloran
+Maintainer: Eoghan T O'Halloran <eoghan.ohalloran2@mail.dcu.ie>
+Description: Assigns genetic ancestry to an individual and
+    studies relationships between local and global populations.
 License: GPL-2
 LazyLoad: yes
-Packaged: 2015-02-03 18:20:01 UTC; tiago
+Packaged: 2016-09-24 21:31:34 UTC; eoghan
 Suggests: knitr
 VignetteBuilder: knitr
+SystemRequirements: None, but greater than 12 GB of RAM highly
+        recommended.
+RoxygenNote: 5.0.1
+Depends: R(>= 2.10)
+Imports: svd(>= 0.3.3-2), parallel(>= 3.2.1), grDevices, graphics,
+        stats, utils
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2015-02-03 23:10:18
+Date/Publication: 2016-09-28 19:28:04
